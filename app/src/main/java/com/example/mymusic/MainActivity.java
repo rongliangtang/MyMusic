@@ -63,8 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
         //开启下载服务
         //注册下载服务intent
-        Intent downloadIntent = new Intent(MainActivity.this,DownloadService.class);
-        downloadIntent.putExtra("name","test");
+        Intent downloadIntent = new Intent(getApplicationContext(),DownloadService.class);
         bindService(downloadIntent,connection,BIND_AUTO_CREATE);
 
 
@@ -111,17 +110,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void initSongs() {
         for (int i = 0;i < 1;i++){
-            Song song1 = new Song("Empty Playground","/sdcard/Download/empty-playground.mp3","https://freemusicarchive.org/track/empty-playground/download");
+            Song song1 = new Song("1","Empty Playground","/sdcard/Download/empty-playground.mp3","https://freemusicarchive.org/track/empty-playground/download"," Ketsa","5D");
             songList.add(song1);
-            Song song2 = new Song("Love is Here","/sdcard/Download/love-is-here.mp3","https://freemusicarchive.org/track/love-is-here/download");
+            Song song2 = new Song("2","Love is Here","/sdcard/Download/love-is-here.mp3","https://freemusicarchive.org/track/love-is-here/download"," Ketsa","Ascendance");
             songList.add(song2);
-            Song song3 = new Song("Playing With Shadows","/sdcard/Download/playing-with-shadows.mp3","https://freemusicarchive.org/track/playing-with-shadows/download");
+            Song song3 = new Song("3","Playing With Shadows","/sdcard/Download/playing-with-shadows.mp3","https://freemusicarchive.org/track/playing-with-shadows/download"," Ketsa ","5D");
             songList.add(song3);
-            Song song4 = new Song("night sky","/sdcard/Download/night-sky.mp3","https://freemusicarchive.org/track/night-sky/download");
+            Song song4 = new Song("4","night sky","/sdcard/Download/night-sky.mp3","https://freemusicarchive.org/track/night-sky/download","  Dee Yan-Key ","little night thoughts");
             songList.add(song4);
-            Song song5 = new Song("Endless Rivers","/sdcard/Download/endless-rivers.mp3","https://freemusicarchive.org/track/endless-rivers/download");
+            Song song5 = new Song("5","Endless Rivers","/sdcard/Download/endless-rivers.mp3","https://freemusicarchive.org/track/endless-rivers/download"," Ketsa","Ascendance ");
             songList.add(song5);
-            Song song6 = new Song("maria durch ein dornwald ging","/sdcard/Download/maria-durch-ein-dornwald-ging.mp3","https://freemusicarchive.org/track/maria-durch-ein-dornwald-ging/download");
+            Song song6 = new Song("6","maria durch ein dornwald ging","/sdcard/Download/maria-durch-ein-dornwald-ging.mp3","https://freemusicarchive.org/track/maria-durch-ein-dornwald-ging/download","  Dee Yan-Key","At Christmas Time ");
             songList.add(song6);
         }
     }

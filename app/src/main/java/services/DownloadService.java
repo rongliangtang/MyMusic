@@ -72,7 +72,8 @@ public class DownloadService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        name = intent.getStringExtra("name");
+//        //获取从intent获取activity传递过来的数据
+//        name = intent.getStringExtra("name");
         return mBinder;
     }
 
@@ -84,7 +85,7 @@ public class DownloadService extends Service {
                 downloadTask = new DownloadTask(listener);
                 downloadTask.execute(downloadUrl);
                 startForeground(1,getNotification("歌曲下载中...",0));
-                Toast.makeText(DownloadService.this,name + "歌曲下载中...",Toast.LENGTH_SHORT).show();
+                Toast.makeText(DownloadService.this,"歌曲下载中...",Toast.LENGTH_SHORT).show();
             }
         }
         //暂停下载

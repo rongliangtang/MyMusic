@@ -3,14 +3,44 @@ package list;
 import java.io.Serializable;
 
 public class Song implements Serializable {
+    private String id;
     private String name;
     private String uri;
     private String downUri;
+    private String author;
+    private String ablum;
 
-    public Song(String name, String uri, String downUri) {
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public Song(String id, String name, String uri, String downUri, String author, String ablum) {
+        this.id = id;
         this.name = name;
         this.uri = uri;
         this.downUri = downUri;
+        this.author = author;
+        this.ablum = ablum;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getAblum() {
+        return ablum;
+    }
+
+    public void setAblum(String ablum) {
+        this.ablum = ablum;
     }
 
     public String getName() {

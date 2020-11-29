@@ -33,18 +33,27 @@ public class SongAdapter extends ArrayAdapter {
         if (convertView == null){
             view = LayoutInflater.from(getContext()).inflate(resourceId,parent,false);
             viewHolder = new ViewHolder();
+            viewHolder.songId = (TextView) view.findViewById(R.id.song_id);
             viewHolder.songName = (TextView) view.findViewById(R.id.song_name);
+            viewHolder.songAlbum = (TextView) view.findViewById(R.id.song_album);
+            viewHolder.songAuthor = (TextView) view.findViewById(R.id.song_author);
             view.setTag(viewHolder);    //将ViewHolder存储在view中
 
         }else {
             view = convertView;
             viewHolder= (ViewHolder) view.getTag();
         }
+        viewHolder.songId.setText(song.getId());
         viewHolder.songName.setText(song.getName());
+        viewHolder.songAlbum.setText(song.getAblum());
+        viewHolder.songAuthor.setText(song.getAuthor());
         return view;
     }
 
     class ViewHolder{
+        TextView songId;
+        TextView songAlbum;
+        TextView songAuthor;
         TextView songName;
     }
 
