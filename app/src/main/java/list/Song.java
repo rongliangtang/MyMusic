@@ -9,6 +9,15 @@ public class Song implements Serializable {
     private String downUri;
     private String author;
     private String ablum;
+    private int playUri;
+
+    public int getPlayUri() {
+        return playUri;
+    }
+
+    public void setPlayUri(int playUri) {
+        this.playUri = playUri;
+    }
 
     public String getAuthor() {
         return author;
@@ -18,13 +27,14 @@ public class Song implements Serializable {
         return id;
     }
 
-    public Song(String id, String name, String uri, String downUri, String author, String ablum) {
+    public Song(String id, String name, String uri, String downUri, String author, String ablum, int playUri) {
         this.id = id;
         this.name = name;
         this.uri = uri;
         this.downUri = downUri;
         this.author = author;
         this.ablum = ablum;
+        this.playUri = playUri;
     }
 
     public void setId(String id) {

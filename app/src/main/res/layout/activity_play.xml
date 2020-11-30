@@ -20,11 +20,12 @@
             android:textSize="18dp"/>
 
         <ImageView
+            android:id="@+id/pic"
             android:layout_width="300dp"
             android:layout_height="300dp"
             android:layout_marginTop="40dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/play_image"/>
+            android:src="@drawable/pic1"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

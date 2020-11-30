@@ -5,6 +5,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
@@ -12,7 +14,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +46,13 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
     private List<Song> songList;
     private int position;
 
+    Button previous;
+    Button play;
+    Button next;
+
+    private ObjectAnimator animator;//运用ObjectAnimator实现转动
+    private ImageView pic;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +65,20 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
 
         format = new SimpleDateFormat("mm:ss");
 
+        //唱片旋转效果
+        pic = (ImageView) findViewById(R.id.pic);
+        pic.setImageResource(songList.get(position).getPlayUri());
+        animator = ObjectAnimator.ofFloat(pic, "rotation", 0f, 360.0f);
+        animator.setDuration(100000/2);
+        animator.setInterpolator(new LinearInterpolator());//匀速
+        animator.setRepeatCount(-1);//设置动画重复次数（-1代表一直转）
+        animator.setRepeatMode(ValueAnimator.RESTART);//动画重复模式
+
         //监听按钮点击事件
-        Button previous = (Button) findViewById(R.id.previous);
-        Button play = (Button) findViewById(R.id.play);
-        Button next = (Button) findViewById(R.id.next);
+        previous = (Button) findViewById(R.id.previous);
+        play = (Button) findViewById(R.id.play);
+        next = (Button) findViewById(R.id.next);
+
         previous.setOnClickListener(this);
         play.setOnClickListener(this);
         next.setOnClickListener(this);
@@ -79,6 +100,9 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
             //开始播放
             play.setBackgroundResource(R.drawable.pause);
             mediaPlayer.start();
+            animator.start();
+
+
             //监听播放时回调函数
             timer = new Timer();
             timer.schedule(new TimerTask() {
@@ -86,7 +110,12 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
                 Runnable updateUI = new Runnable() {
                     @Override
                     public void run() {
-                        musicCur.setText(format.format(mediaPlayer.getCurrentPosition()) + "");
+                        try {
+                            musicCur.setText(format.format(mediaPlayer.getCurrentPosition()) + "");
+                        }catch (Exception e){
+                            return;
+                        }
+
                     }
                 };
 
@@ -158,8 +187,10 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
                         return;
                     }
                     initMediaPlayer(position);
-                    v.setBackgroundResource(R.drawable.pause);
+                    play.setBackgroundResource(R.drawable.pause);
+                    pic.setImageResource(songList.get(position).getPlayUri());
                     mediaPlayer.start();
+                    animator.start();
                 }
                 break;
             case R.id.play:
@@ -167,10 +198,12 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
                     //开始播放
                     v.setBackgroundResource(R.drawable.pause);
                     mediaPlayer.start();
+                    animator.resume();
                 } else {
                     //暂停播放
                     v.setBackgroundResource(R.drawable.play);
                     mediaPlayer.pause();
+                    animator.pause();
                 }
                 break;
             case R.id.next:
@@ -187,8 +220,10 @@ public class MusicPlayer extends AppCompatActivity implements View.OnClickListen
                         return;
                     }
                     initMediaPlayer(position);
-                    v.setBackgroundResource(R.drawable.pause);
+                    play.setBackgroundResource(R.drawable.pause);
+                    pic.setImageResource(songList.get(position).getPlayUri());
                     mediaPlayer.start();
+                    animator.start();
                 }
                 break;
             default:
